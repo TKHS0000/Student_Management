@@ -50,15 +50,6 @@ public class StudentService {
     }
 
     @Transactional
-//    public StudentDetail registerStudent(StudentDetail studentDetail) {
-//        repository.registerStudent(studentDetail.getStudent());
-//        for(StudentsCourses studentsCourse:studentDetail.getStudentsCourses()){
-//            studentsCourse.setStudentsId(studentDetail.getStudent().getId());
-//            studentsCourse.setCourseStart(LocalDateTime.now());
-//            studentsCourse.setCourseEnd(LocalDateTime.now().plusYears(1));
-//            repository.registerStudentCourses(studentsCourse) ;
-//        }
-//    }
     public StudentDetail registerStudent(StudentDetail studentDetail) {
         Student student = studentDetail.getStudent();
 

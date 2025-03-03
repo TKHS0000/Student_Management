@@ -1,6 +1,9 @@
 package raisetech.StudentManagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,38 @@ public class StudentController {
         this.converter = converter;
     }
 
+    /**
+     * 受講生詳細の登録を行います。
+     *
+     * @palam studentDetail 受講生詳細
+     * @return　実行結果
+     */
+
+
+    @Operation(summary = "受講生一覧検索", description = "受講生の一覧を検索します。")
+    @PostMapping("/registerStudent")
+    public ResponseEntity<String> registerStudent(@RequestBody StudentDetail studentDetail) {
+        service.registerStudent(studentDetail);
+        return ResponseEntity.ok("登録処理が成功しました。");
+    }
+
+    /**
+     * 受講生詳細の更新を行います。　キャンセルフラグの更新もここで行います(論理削除)
+     *
+     * @param studentDetail 受講生詳細
+     * @return　実行結果
+     */
+
+    @Operation(summary = "受講生更新",description = "受講生を更新します。")
+
+    @PostMapping("/updateStudent")
+    public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail) {
+        service.updateStudent(studentDetail);
+        return ResponseEntity.ok("更新処理が成功しました。");
+    }
+
+
+
 
     @GetMapping("/studentList")
     public List<StudentDetail> getStudentList() {
@@ -47,22 +82,9 @@ public class StudentController {
         return "registerStudent";
     }
 
-    @PostMapping("/updateStudent")
-    public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail) {
-        service.updateStudent(studentDetail);
-        return ResponseEntity.ok("更新処理が成功しました。");
-    }
 
-   @PostMapping("/registerStudent")
-   public ResponseEntity<String> registerStudent(@RequestBody StudentDetail studentDetail) {
-      service.registerStudent(studentDetail);
-       return ResponseEntity.ok("登録処理が成功しました。");
-   }
 
- //   @PostMapping("/registerStudent")
-//public ResponseEntity<StudentDetail> registerStudent(@RequestBody StudentDetail studentDetail) {
-  //      StudentDetail responseStudentDetail = service.registerStudent(studentDetail);
-   //     return ResponseEntity.ok(responseStudentDetail);
- //   }
+
+
 
 }

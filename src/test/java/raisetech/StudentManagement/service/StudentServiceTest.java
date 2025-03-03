@@ -13,6 +13,8 @@ import raisetech.StudentManagement.repository.StudentRepository;
 
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +34,7 @@ class StudentServiceTest {
     private StudentService sut;
 
     @BeforeEach
-    void before(){
+    void before() {
         sut = new StudentService(repository, converter);
     }
 
@@ -116,4 +118,30 @@ class StudentServiceTest {
 
         verify(converter, times(1)).convertStudentDetails(studentList, studentsCoursesList);
     }
+
+
+    @Test
+    void 受講生詳細の登録_初期化処理が行われること() {
+        // 事前準備
+        String id = "999";
+        Student student = new Student();
+        student.setId(id);
+
+        StudentsCourses studentsCourses = new StudentsCourses();
+        studentsCourses.setCourseStart(LocalDateTime.of(2025, 3, 5, 12, 0)); // 固定値を設定
+        studentsCourses.setCourseEnd(LocalDateTime.of(2026, 3, 5, 12, 0));
+
+        StudentDetail studentDetail = new StudentDetail();
+        studentDetail.setStudent(student);
+        studentDetail.setStudentsCourses(Arrays.asList(studentsCourses));
+
+        // 実行
+        sut.updateStudent(studentDetail);
+
+        // 検証
+        assertEquals(id, studentsCourses.getStudentsId());
+        assertEquals(12, studentsCourses.getCourseStart().getHour()); // 固定値と比較
+        assertEquals(2026, studentsCourses.getCourseEnd().getYear()); // 1年後の値を確認
+    }
+
 }
