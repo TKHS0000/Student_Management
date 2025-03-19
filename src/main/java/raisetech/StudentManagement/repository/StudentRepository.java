@@ -3,7 +3,6 @@ package raisetech.StudentManagement.repository;
 import org.apache.ibatis.annotations.*;
 import raisetech.StudentManagement.data.Student;
 import raisetech.StudentManagement.data.StudentsCourses;
-import raisetech.StudentManagement.domain.StudentDetail;
 
 import java.util.List;
 
