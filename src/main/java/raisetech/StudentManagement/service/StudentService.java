@@ -36,14 +36,15 @@ public class StudentService {
 
 
     public StudentDetail searchStudent(String id) {
+        int studentId = Integer.parseInt(id); // String を int に変換
         Student student = repository.searchStudent(id);
-        List<StudentsCourses> studentsCourses = repository.searchStudentsCourses(student.getId()) ;
+        List<StudentsCourses> studentsCourses = repository.searchStudentsCourses(studentId); // int型に渡す
         StudentDetail studentDetail = new StudentDetail();
         studentDetail.setStudent(student);
         studentDetail.setStudentsCourses(studentsCourses);
-        return studentDetail ;
-
+        return studentDetail;
     }
+
 
     public List<StudentsCourses> searchStudentsCourseList() {
         return repository.searchStudentsCoursesList();
