@@ -17,19 +17,25 @@
         <th>年齢</th>
         <th>性別</th>
         <th>備考</th>
+        <th>キャンセル</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="studentDetail : ${studentList}">
         <td th:text="${studentDetail.student.id}">1</td>
-        <td th:text="${studentDetail.student.name}">榎本之雄</td>
+        <td>
+            <a th:href="@{/student/{id}(id=${studentDetail.student.id})}" th:text="${studentDetail.student.name}">榎本之雄</a>
+        </td>
         <td th:text="${studentDetail.student.kana}">エノモトユキオ</td>
         <td th:text="${studentDetail.student.nickname}">ユキオ</td>
         <td th:text="${studentDetail.student.email}">OOOO@email.com</td>
         <td th:text="${studentDetail.student.region}">三重</td>
-        <td th:text="${studentDetail.student.age}">35</td>
+        <td th:text="${studentDetail.student.age}">37</td>
         <td th:text="${studentDetail.student.gender}">男性</td>
         <td th:text="${studentDetail.student.remark}">特になし</td>
+        <td>
+            <input type="checkbox" th:checked="${studentDetail.student.isDeleted}" />
+        </td>
     </tr>
     </tbody>
 </table>
