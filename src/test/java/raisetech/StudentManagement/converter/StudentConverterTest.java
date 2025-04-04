@@ -18,7 +18,7 @@ class StudentConverterTest {
 
     @BeforeEach
     void before() {
-        sut = new StudentConverter(); // 初期化
+        sut = new StudentConverter();   // 初期化
     }
 
     @Test
