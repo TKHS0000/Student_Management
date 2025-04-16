@@ -46,6 +46,7 @@ public interface StudentRepository {
     @Update("UPDATE students_courses SET students_course = #{studentsCourse} WHERE id = #{id}")
     void updateStudentCourses(StudentsCourses studentsCourses);
 
-    // 仮メソッド（必要に応じて実装）
-    void convertStudentDatails(); // 必要に応じて実装
+    // studentId と courseId に基づいてコースを検索
+    @Select("SELECT * FROM students_courses WHERE students_id = #{studentId} AND course_id = #{courseId}")
+    StudentsCourses findByStudentIdAndCourseId(@Param("studentId") String studentId, @Param("courseId") int courseId);
 }

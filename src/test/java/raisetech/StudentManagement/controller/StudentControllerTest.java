@@ -179,5 +179,34 @@ class StudentControllerTest {
 
     }
 
+    @Test
+    void 受講生のコース申込状況が正常に設定されること() throws Exception {
+        // ここでは仮にJSONとしてコースの申込状況を指定しています
+        mockMvc.perform(post("/registerStudent")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                    {
+                    "student": {
+                        "name": "榎本之雄",
+                        "Kana": "エノモトユキオ",
+                        "Nick": "エノユキ",
+                        "Email": "OOOO@email.com",
+                        "Region": "三重",
+                        "Gender": "男性",
+                        "Remark": ""
+                        },
+                    "studentCourseList" : [
+                    {
+                        "courseName" : "Java",
+                        "status": "仮申込"
+                    }
+                    ]
+                    }"""))
+                .andExpect(status().isOk())  // ステータスコードが200であること
+                .andExpect(content().json("{\"studentCourseList\":[{\"courseName\":\"Java\",\"status\":\"仮申込\"}]}"));  // JSONレスポンスの内容を確認
+
+        // サービスのregisterStudentメソッドが1回呼ばれたことを確認
+        verify(service, times(1)).registerStudent(any());
+    }
 
 }

@@ -8,13 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class StudentsCourses {
 
+public class StudentsCourses {
     private String id;
     private String studentsId;
     private String studentsCourse;
     private LocalDateTime courseStart;
     private LocalDateTime courseEnd;
+    private String status;
+}
 
-    }
 
