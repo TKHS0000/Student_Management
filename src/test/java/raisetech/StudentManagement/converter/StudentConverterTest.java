@@ -34,7 +34,6 @@ class StudentConverterTest {
         student.setAge(37);
         student.setGender("男性");
         student.setDeleted(false); // 修正
-        // ✅ 修正
 
         // StudentsCoursesオブジェクトの作成
         StudentsCourses studentsCourses = new StudentsCourses();
@@ -51,6 +50,7 @@ class StudentConverterTest {
         // sut の変換処理をテスト
         List<StudentDetail> actual = sut.convertStudentDetails(studentList, studentCourseList);
 
+        // 受講生の詳細が正しく変換されているか確認
         assertThat(actual.get(0).getStudent()).isEqualTo(student);
         assertThat(actual.get(0).getStudentsCourses()).isEqualTo(studentCourseList);
     }
@@ -61,6 +61,7 @@ class StudentConverterTest {
 
     @Test
     void 受講生のリストと受講生コース情報のリストを渡した時に紐づかない受講生コース情報は除外されること() {
+        // Studentオブジェクトの作成
         Student student = createStudent();
         student.setId("1");
         student.setName("榎本之雄");
@@ -71,11 +72,11 @@ class StudentConverterTest {
         student.setAge(37);
         student.setGender("男性");
         student.setDeleted(false); // 修正
-        // ✅ 修正
 
+        // StudentsCoursesオブジェクトの作成
         StudentsCourses studentsCourses = new StudentsCourses();
-        studentsCourses.setId("1"); // ✅ 異なるIDを設定して関連しないデータを作成
-        studentsCourses.setStudentsId("1"); // ✅ 異なるIDを設定
+        studentsCourses.setId("2"); // 異なるIDを設定して関連しないデータを作成
+        studentsCourses.setStudentsId("3"); // 異なるIDを設定
         studentsCourses.setStudentsCourse("Java");
         studentsCourses.setCourseStart(LocalDateTime.of(2024, 4, 1, 0, 0));
         studentsCourses.setCourseEnd(LocalDateTime.of(2025, 3, 1, 0, 0));
@@ -89,7 +90,5 @@ class StudentConverterTest {
 
         // 受講生のコース情報が紐づかない場合、リストは空のはず
         assertThat(actual.get(0).getStudentsCourses()).isEmpty();
-
-
     }
 }

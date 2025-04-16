@@ -38,10 +38,8 @@ class StudentServiceTest {
         sut = new StudentService(repository, converter);
     }
 
-
     @Test
     void 受講生詳細登録_受講生とコース情報の登録ができていること() {
-
         // 事前準備
         Student student = new Student();
         student.setId("9");
@@ -74,10 +72,8 @@ class StudentServiceTest {
         assertNotNull(studentsCourse.getCourseEnd(), "コース終了日が設定されていません");
     }
 
-
     @Test
     void 受講生詳細更新_受講生とコースの情報が正しく更新されていること() {
-
         // 事前準備
         Student student = new Student();
         student.setId("5");
@@ -94,12 +90,11 @@ class StudentServiceTest {
 
         // 検証
         verify(repository, times(1)).updateStudent(student); // 受講生情報の更新がリポジトリで1回呼び出されていること
-        verify(repository, times(1)).updateStudentCourses(studentscourse); // 各コース情報の更新がリポジトリで// 1回ずつ呼び出されていること
+        verify(repository, times(1)).updateStudentCourses(studentscourse); // 各コース情報の更新がリポジトリで1回呼び出されていること
     }
 
     @Test
     void 受講生詳細一覧検索_リポジトリとコンバータの呼び出しができていること() {
-
         // 事前準備
         List<Student> studentList = new ArrayList<>();
         List<StudentsCourses> studentsCoursesList = new ArrayList<>();
@@ -107,18 +102,14 @@ class StudentServiceTest {
         when(repository.search()).thenReturn(studentList);
         when(repository.searchStudentsCoursesList()).thenReturn(studentsCoursesList);
 
-
         // 実行
         List<StudentDetail> actual = sut.searchStudentList();
-
 
         // 検証
         verify(repository, times(1)).search();
         verify(repository, times(1)).searchStudentsCoursesList();
-
         verify(converter, times(1)).convertStudentDetails(studentList, studentsCoursesList);
     }
-
 
     @Test
     void 受講生詳細の登録_初期化処理が行われること() {
@@ -143,5 +134,4 @@ class StudentServiceTest {
         assertEquals(12, studentsCourses.getCourseStart().getHour()); // 固定値と比較
         assertEquals(2026, studentsCourses.getCourseEnd().getYear()); // 1年後の値を確認
     }
-
 }
